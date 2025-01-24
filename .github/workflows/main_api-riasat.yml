@@ -70,10 +70,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
-          enable-debug-logging: true
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_85E4D3DE446849ED9E8313786987E8AD }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D147E573510F436D876B1918CC93E7D6 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_FA8B13C7950C440994685F532FEA9673 }}
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
@@ -81,5 +80,5 @@ jobs:
         with:
           app-name: 'api-riasat'
           slot-name: 'Production'
-          package: './${{ env.PACKAGE_PATH }}'
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           
