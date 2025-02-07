@@ -1,17 +1,18 @@
 const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-
+    mode: 'development',
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     devServer: {
         static: {
-          directory: path.join(__dirname, 'dist'),
+            directory: path.join(__dirname, 'dist'),
         },
         compress: true,
         port: 3000,
@@ -19,45 +20,33 @@ module.exports = {
         client: {
             logging: 'verbose',
             overlay: true,
-          },
-          proxy: [
-            {
-              context: ['/api'],
-              target: 'http://localhost:7071',
-            },
-          ],
-      },
+        },
+    },
     module: {
         rules: [
-          {
-            test: /\.css$/i,
-            use: ['style-loader', 'css-loader'],
-          },
-          {
-            "test": /\.js$/,
-            "exclude": /node_modules/,
-            "use": {
-              "loader": "babel-loader",
-              "options": {
-                "presets": [
-                  "@babel/preset-env",
-                ]
-              }
-            }
-        }
-        ]
-      },
-      plugins: [
-        new Dotenv(),
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                    },
+                },
+            },
+        ],
+    },
+    plugins: [
+        new Dotenv(), // This will load environment variables from .env file
         new CopyWebpackPlugin({
             patterns: [
-              { from: './src/favicon.ico', to: './' },
-              { from: './index.html', to: './'}
+                { from: './src/favicon.ico', to: './' },
+                { from: './index.html', to: './' }
             ],
-          }),
-          new webpack.DefinePlugin({
-            'process.env.BACKEND_URL': JSON.stringify(process.env.BACKEND_URL)
-        })
-    ]
-      
-}
+        }),
+    ],
+};
