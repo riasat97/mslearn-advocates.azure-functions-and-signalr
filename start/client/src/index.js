@@ -11,7 +11,7 @@ const app = new Vue({
         async getStocks() {
             try {
 
-                const url = `${process.env.BACKEND_URL}/api/getStocks`;
+                const url = 'https://api-rrn.azurewebsites.net/api/getStocks';
                 console.log('Fetching stocks from ', url);
 
                 const response = await fetch(url);
