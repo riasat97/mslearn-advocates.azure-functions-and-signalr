@@ -31,7 +31,7 @@ const app = new Vue({
 
 const connect = () => {
 
-    const signalR_URL = `${process.env.BACKEND_URL}/api`;
+    const signalR_URL = 'https://api-rrn.azurewebsites.net/api';
     console.log(`Connecting to SignalR...${signalR_URL}`)
 
     const connection = new signalR.HubConnectionBuilder()
